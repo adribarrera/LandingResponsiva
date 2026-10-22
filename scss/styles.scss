@@ -1,0 +1,57 @@
+@use "sass:color";
+@use "sass:math";
+
+
+// VARIABLES
+$font-family-base: "MontecatiniPro", sans-serif;
+$font-path: "../fonts/MontecatiniPro-StrettoBold.woff2";
+
+$color-primary: #D10000;
+$color-dark: #000000;
+$color-light: #FFFFFF;
+
+$bp-mobile: 768px;
+$bp-tablet: 991.98px;
+
+
+// FUNCIONES Propias y Nativas de sass
+// Función propia: Convierte px a rem usando la función math.div()
+@function px-to-rem($px, $base: 16px) {
+    @return math.div($px, $base) * 1rem;
+}
+
+// Función propia: Genera degradado blanco usando función de sass
+@function overlay-white($opacity: 0.5) {
+    @return linear-gradient(rgba(255, 255, 255, $opacity), rgba(255, 255, 255, $opacity));
+}
+
+
+// MIXINS Parametros, contenido y funciones nativas
+// Mixin centrar flexbox
+@mixin flex-center($direction: row, $justify: center, $align: center) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+}
+
+// Mixin para media 
+@mixin respond-below($breakpoint) {
+    @media (max-width: $breakpoint) {
+        @content;
+    }
+}
+
+// Mixin tarjetas con sombreado usando función color.adjust()
+@mixin custom-card($bg-color: $color-light, $border-color: $color-dark) {
+    height: 100%;
+    text-align: center;
+    background-color: $bg-color;
+    border: 2px solid $border-color;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+    &:hover {
+        box-shadow: 0 6px 16px color.adjust($border-color, $alpha: -0.75);
+        transform: translateY(-2px);
+    }
+}
