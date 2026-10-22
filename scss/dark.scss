@@ -1,0 +1,98 @@
+@use "sass:color";
+
+// VARIABLES DE MODO OSCURO
+$color-dark-bg: #1E1F20;
+$color-dark-surface: #2B2C2E;
+$color-dark-header: #0F0F0F;
+$color-dark-border: #CACACA;
+$color-dark-accent: #FF4D4D;
+$color-dark-text: #E0E0E0;
+$color-light: #FFFFFF;
+
+// FUNCIONES
+// Función propia que usa la función nativa color.adjust()
+@function tint-shade($color, $percentage) {
+    @return color.adjust($color, $lightness: $percentage);
+}
+
+// MIXINS
+@mixin custom-card-dark($bg: $color-dark-surface, $border: $color-dark-border) {
+    height: 100%;
+    text-align: center;
+    background-color: $bg;
+    border: 2px solid $border;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+    &:hover {
+        box-shadow: 0 6px 16px color.adjust($border, $alpha: -0.8);
+        transform: translateY(-2px);
+    }
+}
+
+
+// ESTILOS DE MODO OSCURO
+body {
+    background-color: $color-dark-bg !important;
+    color: $color-dark-text;
+    background-image: url("../img/mosaico-dark.png") !important;
+    background-repeat: repeat;
+}
+
+nav,
+footer {
+    background-color: $color-dark-header !important;
+}
+
+footer {
+    color: $color-dark-text;
+    border-top: 1px solid tint-shade($color-dark-surface, 5%);
+}
+
+.titulo-seccion {
+    color: $color-light !important;
+}
+
+.card {
+    @include custom-card-dark($color-dark-surface, $color-dark-border);
+    color: $color-dark-text;
+
+    p {
+        color: $color-dark-border;
+    }
+
+    h3 {
+        color: $color-dark-accent;
+    }
+}
+
+.img-light {
+    display: none;
+}
+
+.img-dark {
+    display: block !important;
+}
+
+.border-estadio {
+    border-color: $color-dark-border !important;
+}
+
+.nav-link:hover {
+    color: color.adjust(#DC3445, $lightness: 5%);
+}
+
+.card-title-stadium {
+    color: $color-light !important;
+}
+
+.card-jugador {
+    border-color: $color-dark-border;
+}
+
+.jugador-dorsal {
+    color: $color-dark-accent;
+}
+
+.jugador-nombre {
+    color: $color-light;
+}
